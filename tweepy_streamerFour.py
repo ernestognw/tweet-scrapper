@@ -26,7 +26,7 @@ class MyStreamListener(tweepy.StreamListener):
         self.output  = open('bdatweets_%s.json' % (time.strftime('%Y%m%d-%H%M%S')), 'a')
 
         #resercher ID and searchID
-        self.output.write('Ana Carolina\n4\n')
+        self.output.write('1\n4\n')
     def on_status(self, status):
         self.counter += 1
         print('Reading Twitter Stream...')
@@ -38,7 +38,7 @@ class MyStreamListener(tweepy.StreamListener):
             self.output  = open('bdatweets_%s.json' % (time.strftime('%Y%m%d-%H%M%S')), 'a')
             
             #resercher ID and searchID
-            self.output.write('Ana Carolina\n4\n')
+            self.output.write('1\n4\n')
             self.counter = 0
         return
 
