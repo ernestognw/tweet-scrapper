@@ -8,9 +8,6 @@ import sys
 import os
 
 
-from dotenv import Dotenv
-dotenv = Dotenv(os.path.join(os.path.dirname(__file__), ".env"))
-os.environ.update(dotenv)
 
 #override tweepy.StreamListener
 from tweepy import API
