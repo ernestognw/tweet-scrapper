@@ -7,8 +7,6 @@ import time
 import sys
 import os
 
-
-
 #override tweepy.StreamListener
 from tweepy import API
 
@@ -52,4 +50,4 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 myStream = tweepy.Stream(auth = api.auth, listener=MyStreamListener(api))
-myStream.filter(track=['AMLO', 'Mexico'], locations=[-96.71,  37.09, -95.71,  38.09], languages=['en', 'es'])
+myStream.filter(track=['AMLO'], locations=[-96.71,  37.09, -95.71,  38.09], languages=['en', 'es'])

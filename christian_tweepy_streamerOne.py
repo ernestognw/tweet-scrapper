@@ -6,10 +6,6 @@ import json
 import time
 import sys
 import os
-
-
-
-
 #override tweepy.StreamListener
 from tweepy import API
 

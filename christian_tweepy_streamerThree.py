@@ -53,4 +53,4 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 myStream = tweepy.Stream(auth = api.auth, listener=MyStreamListener(api))
-myStream.filter(follow=['25073877'])
+myStream.filter(track=['Republican'])
