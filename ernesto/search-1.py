@@ -7,40 +7,41 @@ import sys
 import os
 
 # Get env variables
+import os
 from dotenv import Dotenv
-dotenv = Dotenv(os.path.join(os.path.dirname(__file__), ".env"))
+dotenv = Dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 os.environ.update(dotenv)
 
-# override tweepy.StreamListener
+#override tweepy.StreamListener
 from tweepy import API
 
+searchId = 1
 
 class MyStreamListener(tweepy.StreamListener):
-
     def __init__(self, api=None):
         super(MyStreamListener, self).__init__(api)
         self.api = api or API()
-        self.counter = 0
-        # define the filename with time as prefix
-        self.output = open('bdatweets_%s.json' %(time.strftime('%Y%m%d-%H%M%S')), 'a')
-        # researcher ID and searchID
-        self.output.write('1\n1\n')
+        self.startFile()
+        
+    def startFile(self):
+      # define the filename with time as prefix
+      self.path = os.path.join(os.path.dirname(__file__), './search-%d-%s.json' %(searchId, time.strftime('%Y%m%d-%H%M%S')))
+      self.output = open(self.path, 'a')
+      #resercher ID and searchID
+      self.counter = 0
+
     def on_status(self, status):
         self.counter += 1
-        print('Reading Twitter Stream...')
+        print('Getting tweet %d' %(self.counter))
         json.dump(status._json, self.output)
         self.output.write('\n')
-        if self.counter >= 100:
+        if self.counter >= 2000:
             self.output.close()
-            self.output = open('bdatweets_%s.json' % (time.strftime('%Y%m%d-%H%M%S')), 'a')
-            # researcher ID and searchID
-            self.output.write('1\n1\n')
-            self.counter = 0
+            self.startFile()
         return
 
     def on_error(self, status):
         print(status)
-
 
 consumer_key = os.getenv('CONSUMER_KEY')
 consumer_secret = os.getenv('CONSUMER_SECRET')
@@ -52,4 +53,4 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 myStream = tweepy.Stream(auth=api.auth, listener=MyStreamListener(api))
-myStream.filter(track=['MIT', 'Stanford', 'Harvard'])
+myStream.filter(track=['Apple'], locations=[-101.31,25.67,-100.31,26.67,-100.13, 19.43,-99.13, 20.43])
