@@ -25,7 +25,7 @@ class MyStreamListener(tweepy.StreamListener):
         
     def startFile(self):
       # define the filename with time as prefix
-      self.path = os.path.join(os.path.dirname(__file__), './search-%d-%s.json' %(searchId, time.strftime('%Y%m%d-%H%M%S')))
+      self.path = os.path.join(os.path.dirname(__file__), './tweets/search-%d-%s.json' %(searchId, time.strftime('%Y%m%d-%H%M%S')))
       self.output = open(self.path, 'a')
       #resercher ID and searchID
       self.counter = 0
@@ -53,4 +53,4 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 myStream = tweepy.Stream(auth=api.auth, listener=MyStreamListener(api))
-myStream.filter(track=['Apple'], locations=[-101.31,25.67,-100.31,26.67,-100.13, 19.43,-99.13, 20.43])
+myStream.filter(track=['#Yovanovitch', '#Ucrania'])
